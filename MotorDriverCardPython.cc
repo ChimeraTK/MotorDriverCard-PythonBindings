@@ -6,17 +6,24 @@
 using namespace mtca4u;
 namespace bp = boost::python;
 
-std::string returnStatusAsString(LinearStepperMotorStatusAndError &self);
-std::string returnErrorAsString(LinearStepperMotorStatusAndError &self);
-int returnStatusID(LinearStepperMotorStatusAndError &self);
-int returnErrorID(LinearStepperMotorStatusAndError &self);
+std::string returnMotorStatusAsString(LinearStepperMotorStatusAndError &self);
+std::string returnMotorErrorAsString(LinearStepperMotorStatusAndError &self);
+int returnMotorStatusID(LinearStepperMotorStatusAndError &self);
+int returnMotorErrorID(LinearStepperMotorStatusAndError &self);
+
+std::string returnCalibrartionStatusAsString(StepperMotorCalibrationStatus &self);
+int returnCalibrationMotorStatusID(StepperMotorCalibrationStatus &self);
 
 BOOST_PYTHON_MODULE(steppermotor) {
   bp::class_<LinearStepperMotorStatusAndError>("StatusAndError", bp::init<>())
-      .def("getStatus", &returnStatusAsString)
-      .def("getError", &returnErrorAsString)
-      .def("getStatusID", &returnStatusID)
-      .def("getErrorID", &returnErrorID);
+      .def("getStatus", &returnMotorStatusAsString)
+      .def("getError", &returnMotorErrorAsString)
+      .def("getStatusID", &returnMotorStatusID)
+      .def("getErrorID", &returnMotorErrorID);
+
+  bp::class_<StepperMotorCalibrationStatus>("StatusAndError", bp::init<>())
+      .def("getStatus", &returnCalibrartionStatusAsString)
+      .def("getStatusID", &returnCalibrationMotorStatusID);
 
   bp::class_<LinearStepperMotor, boost::noncopyable>(
       "LinearStepperMotor", bp::init<std::string const &, std::string const &,
@@ -33,24 +40,34 @@ BOOST_PYTHON_MODULE(steppermotor) {
       .def("stop", &LinearStepperMotor::stop)
       .def("setEnabled", &LinearStepperMotor::setEnabled)
       .def("getEnabled", &LinearStepperMotor::getEnabled)
+      .def("calibrateMotor", &LinearStepperMotor::calibrateMotor)
       .def("getNegativeEndSwitchPosition", &LinearStepperMotor::getNegativeEndSwitchPosition)
       .def("getPositiveEndSwitchPosition", &LinearStepperMotor::getPositiveEndSwitchPosition)
       .def("getStatusAndError", &LinearStepperMotor::getStatusAndError)
       .def("setStepperMotorUnitsConverter", &LinearStepperMotor::setStepperMotorUnitsConverter);
 }
 
-std::string returnStatusAsString(LinearStepperMotorStatusAndError &self) {
+std::string returnMotorStatusAsString(LinearStepperMotorStatusAndError &self) {
   return self.status.asString();
 }
 
-std::string returnErrorAsString(LinearStepperMotorStatusAndError &self) {
+std::string returnMotorErrorAsString(LinearStepperMotorStatusAndError &self) {
   return self.error.asString();
 }
 
-int returnStatusID(LinearStepperMotorStatusAndError &self) {
+int returnMotorStatusID(LinearStepperMotorStatusAndError &self) {
   return self.status.getId();
 }
 
-int returnErrorID(LinearStepperMotorStatusAndError &self) {
+int returnMotorErrorID(LinearStepperMotorStatusAndError &self) {
   return self.error.getId();
+}
+
+std::string returnCalibrartionStatusAsString(
+    StepperMotorCalibrationStatus &self) {
+  return self.asString();
+}
+
+int returnCalibrationMotorStatusID(StepperMotorCalibrationStatus &self) {
+  return self.getId();
 }
