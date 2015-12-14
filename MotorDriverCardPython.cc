@@ -9,13 +9,7 @@ namespace bp = boost::python;
 const std::string returnStatusAsString(LinearStepperMotorStatusAndError self);
 const std::string returnErrorAsString(LinearStepperMotorStatusAndError self);
 
-std::string global = "Status";
 BOOST_PYTHON_MODULE(motor) {
-  //  class_<mtca4u::StepperMotorUnitsConverter>("StepperMotorUnitsConverter")
-  //    .def("stepsToUnits", &StepperMotorUnitsConverter::stepsToUnits)
-  //    .def("unitsToSteps", &World::unitsToSteps)
-  //    ;
-
   bp::class_<LinearStepperMotorStatusAndError>("StatusAndError", bp::init<>())
       .def("getStatus", &returnStatusAsString)
       .def("getError", &returnErrorAsString);
