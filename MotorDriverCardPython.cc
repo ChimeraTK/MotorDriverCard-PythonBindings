@@ -13,11 +13,10 @@ BOOST_PYTHON_MODULE(mtca4u_MotorDriverCardPython)
 //    ;
   
 
-  class_<StepperMotorStatusAndError>("StepperMotorStatusAndError")
-    ;
+  class_<StepperMotorStatusAndError>("StepperMotorStatusAndError");
 
   class_<StepperMotor, boost::noncopyable>("StepperMotor",
-		       init<std::string, unsigned int, std::string, std::string>())
+      init<std::string const &, std::string const &, unsigned int, std::string>())
     .def("moveToPosition",&StepperMotor::moveToPosition)
     .def("setTargetPosition",&StepperMotor::setTargetPosition)
     .def("getTargetPosition",&StepperMotor::setTargetPosition)
