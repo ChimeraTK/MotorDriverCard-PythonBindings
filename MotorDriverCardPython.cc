@@ -6,8 +6,8 @@
 using namespace mtca4u;
 namespace bp = boost::python;
 
-const std::string returnStatusAsString(LinearStepperMotorStatusAndError self);
-const std::string returnErrorAsString(LinearStepperMotorStatusAndError self);
+const std::string returnStatusAsString(LinearStepperMotorStatusAndError &self);
+const std::string returnErrorAsString(LinearStepperMotorStatusAndError &self);
 
 BOOST_PYTHON_MODULE(motor) {
   bp::class_<LinearStepperMotorStatusAndError>("StatusAndError", bp::init<>())
@@ -20,7 +20,7 @@ BOOST_PYTHON_MODULE(motor) {
       .def("emergencyStop", &LinearStepperMotor::emergencyStop)
       .def("moveToPosition", &LinearStepperMotor::moveToPosition)
       .def("setTargetPosition", &LinearStepperMotor::setTargetPosition)
-      .def("getTargetPosition", &LinearStepperMotor::setTargetPosition)
+      .def("getTargetPosition", &LinearStepperMotor::getTargetPosition)
       .def("getCurrentPosition", &LinearStepperMotor::getCurrentPosition)
       .def("setCurrentPositionAs", &LinearStepperMotor::setCurrentPositionAs)
       .def("start", &LinearStepperMotor::start)
@@ -29,19 +29,16 @@ BOOST_PYTHON_MODULE(motor) {
       .def("stop", &LinearStepperMotor::stop)
       .def("setEnabled", &LinearStepperMotor::setEnabled)
       .def("getEnabled", &LinearStepperMotor::getEnabled)
-      .def("getNegativeEndSwitchPosition",
-           &LinearStepperMotor::getNegativeEndSwitchPosition)
-      .def("getPositiveEndSwitchPosition",
-           &LinearStepperMotor::getPositiveEndSwitchPosition)
+      .def("getNegativeEndSwitchPosition", &LinearStepperMotor::getNegativeEndSwitchPosition)
+      .def("getPositiveEndSwitchPosition", &LinearStepperMotor::getPositiveEndSwitchPosition)
       .def("getStatusAndError", &LinearStepperMotor::getStatusAndError)
-      .def("setStepperMotorUnitsConverter",
-           &LinearStepperMotor::setStepperMotorUnitsConverter);
+      .def("setStepperMotorUnitsConverter", &LinearStepperMotor::setStepperMotorUnitsConverter);
 }
 
-const std::string returnStatusAsString(LinearStepperMotorStatusAndError self) {
+const std::string returnStatusAsString(LinearStepperMotorStatusAndError &self) {
   return self.status.asString();
 }
 
-const std::string returnErrorAsString(LinearStepperMotorStatusAndError self) {
+const std::string returnErrorAsString(LinearStepperMotorStatusAndError &self) {
   return self.error.asString();
 }
