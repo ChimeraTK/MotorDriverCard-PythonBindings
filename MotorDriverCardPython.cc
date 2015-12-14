@@ -6,13 +6,17 @@
 using namespace mtca4u;
 namespace bp = boost::python;
 
-const std::string returnStatusAsString(LinearStepperMotorStatusAndError &self);
-const std::string returnErrorAsString(LinearStepperMotorStatusAndError &self);
+std::string returnStatusAsString(LinearStepperMotorStatusAndError &self);
+std::string returnErrorAsString(LinearStepperMotorStatusAndError &self);
+int returnStatusID(LinearStepperMotorStatusAndError &self);
+int returnErrorID(LinearStepperMotorStatusAndError &self);
 
-BOOST_PYTHON_MODULE(motor) {
+BOOST_PYTHON_MODULE(steppermotor) {
   bp::class_<LinearStepperMotorStatusAndError>("StatusAndError", bp::init<>())
       .def("getStatus", &returnStatusAsString)
-      .def("getError", &returnErrorAsString);
+      .def("getError", &returnErrorAsString)
+      .def("getStatusID", &returnStatusID)
+      .def("getErrorID", &returnErrorID);
 
   bp::class_<LinearStepperMotor, boost::noncopyable>(
       "LinearStepperMotor", bp::init<std::string const &, std::string const &,
@@ -35,10 +39,18 @@ BOOST_PYTHON_MODULE(motor) {
       .def("setStepperMotorUnitsConverter", &LinearStepperMotor::setStepperMotorUnitsConverter);
 }
 
-const std::string returnStatusAsString(LinearStepperMotorStatusAndError &self) {
+std::string returnStatusAsString(LinearStepperMotorStatusAndError &self) {
   return self.status.asString();
 }
 
-const std::string returnErrorAsString(LinearStepperMotorStatusAndError &self) {
+std::string returnErrorAsString(LinearStepperMotorStatusAndError &self) {
   return self.error.asString();
+}
+
+int returnStatusID(LinearStepperMotorStatusAndError &self) {
+  return self.status.getId();
+}
+
+int returnErrorID(LinearStepperMotorStatusAndError &self) {
+  return self.error.getId();
 }
