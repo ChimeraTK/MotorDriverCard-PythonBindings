@@ -1,0 +1,66 @@
+Quick Start:
+------------
+
+1. Prerequisites to use library:
+   - xml describing motor configuration (e.g. VT21-MotorDriverCardConfig.xml)
+   - dmap file
+   - map files associated with dmap file
+   - system installation of the dev-mtca4u-motordrivercard and python-mtca4u debian packages. 
+
+2. Assuming the following directory structure:
+   ParentDirectory
+   |- steppermotor.so  
+   |- VT21-MotorDriverCardConfig.xml 
+   |- MD22_on_DAMC2.dmap
+   |- md22_damc2_r1066.mapp
+
+   The files above are examples of the xml config file, dmap file and associated map file
+
+Example Usage:
+
+Start python in the 'ParentDirectory'
+$  python
+>>> import steppermotor
+>>> import mtca4u 
+>>> mtca4u.set_dmap_location("./MD22_on_DAMC2.dmap")
+>>> motor = steppermotor.LinearStepperMotor("DFMC-MD22", "MD220", 0, "VT21-MotorDriverCardConfig.xml")
+>>> motor.setEnabled(True)
+>>> motor.setTargetPosition(5000)
+>>> motor.start()
+>>> motor.getStatusAndError().getStatus()
+'Motor IN MOVE (4)'
+>>> motor.getCurrentPosition()
+1234.0
+>>> motor.getCurrentPosition()
+5000.0
+>>> motor.getStatusAndError().getStatus()
+'Motor OK (1)'
+
+In the above example:
+
+- DFMC-MD22 is a device described in the dmapfile:
+   DFMC-MD22 sdm://./pci:pciedevs6 md22_damc2_r1066.mapp
+
+  sdm://./pci:pciedevs6 is equivalent to /dev/pciedevs6
+
+- MD220 is a module described in md22_damc2_r1066.mapp
+
+- 0 is the motor id
+
+--------------------------
+
+To see available commands, in python type:
+>>> help(steppermotor)
+
+
+The LinearStepperMotorInterface has the following methods:
+>>> motor = steppermotor.LinearStepperMotor("DFMC-MD22", "MD220", 0, "VT21-MotorDriverCardConfig.xml")
+>>> motor.
+motor.calibrateMotor                 motor.getPositiveEndSwitchPosition   motor.setEnabled
+motor.emergencyStop                  motor.getStatusAndError              motor.setStepperMotorUnitsConverter
+motor.getCurrentPosition             motor.moveToPosition                 motor.start
+motor.getEnabled                     motor.setAutoStart                   motor.stop
+motor.getNegativeEndSwitchPosition   motor.setCurrentPositionAs
+
+For further information about the parameters please refer to the Doxygen documentation of the C++ library.
+More python build-in documentation will come later.
