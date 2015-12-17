@@ -1,7 +1,7 @@
 How to compile:
 
-You need the MotorDriverCard library and the mtca4u python bindings. Either install the debian packages
-$ sudo apt-get install dev-mtca4u-motordrivercard python-mtca4upy
+You need the MotorDriverCard library, boost-python and the mtca4u python bindings. Either install the debian packages
+$ sudo apt-get install dev-mtca4u-motordrivercard python-mtca4upy libboost-python-dev
 or manually install them from the source code.
 
 1. Create a build directory, usually direcly inside the checkout directory.
