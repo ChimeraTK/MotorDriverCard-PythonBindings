@@ -1,5 +1,5 @@
-#include <MotorDriverCard/StepperMotor.h>
-#include <MotorDriverCard/LinearStepperMotor.h>
+#include <mtca4u/MotorDriverCard/StepperMotor.h>
+#include <mtca4u/MotorDriverCard/LinearStepperMotor.h>
 #include <boost/python.hpp>
 #include <boost/noncopyable.hpp>
 
