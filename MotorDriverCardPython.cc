@@ -44,6 +44,12 @@ BOOST_PYTHON_MODULE(steppermotor) {
       .def("getNegativeEndSwitchPosition", &LinearStepperMotor::getNegativeEndSwitchPosition)
       .def("getPositiveEndSwitchPosition", &LinearStepperMotor::getPositiveEndSwitchPosition)
       .def("getStatusAndError", &LinearStepperMotor::getStatusAndError)
+      .def("getUserSpeedLimit", &LinearStepperMotor::getUserSpeedLimit)
+      .def("setUserSpeedLimit", &LinearStepperMotor::setUserSpeedLimit)
+      .def("setUserCurrentLimit", &LinearStepperMotor::setUserCurrentLimit)
+      .def("getUserCurrentLimit", &LinearStepperMotor::getUserCurrentLimit)
+      .def("getSafeCurrentLimit", &LinearStepperMotor::getSafeCurrentLimit)
+      .def("getMaxSpeedCapability", &LinearStepperMotor::getMaxSpeedCapability)
       .def("setStepperMotorUnitsConverter", &LinearStepperMotor::setStepperMotorUnitsConverter);
 }
 
