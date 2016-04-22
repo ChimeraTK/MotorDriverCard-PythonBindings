@@ -21,8 +21,7 @@ Example Usage:
 Start python in the 'ParentDirectory'
 $  python
 >>> import steppermotor
->>> import mtca4u 
->>> mtca4u.set_dmap_location("./MD22_on_DAMC2.dmap")
+>>> steppermotor.setDmapFilePath("./MD22_on_DAMC2.dmap")
 >>> motor = steppermotor.LinearStepperMotor("DFMC-MD22", "MD220", 0, "VT21-MotorDriverCardConfig.xml")
 >>> motor.setEnabled(True)
 >>> motor.setTargetPosition(5000)
