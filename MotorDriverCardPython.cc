@@ -2,6 +2,7 @@
 #include <mtca4u/MotorDriverCard/LinearStepperMotor.h>
 #include <boost/python.hpp>
 #include <boost/noncopyable.hpp>
+#include <mtca4u/Utilities.h>
 
 using namespace mtca4u;
 namespace bp = boost::python;
@@ -10,6 +11,8 @@ std::string returnMotorStatusAsString(LinearStepperMotorStatusAndError &self);
 std::string returnMotorErrorAsString(LinearStepperMotorStatusAndError &self);
 int returnMotorStatusID(LinearStepperMotorStatusAndError &self);
 int returnMotorErrorID(LinearStepperMotorStatusAndError &self);
+void setDmapFilePath(std::string dmapFilePath);
+std::string getDmapFilePath();
 
 std::string returnCalibrartionStatusAsString(StepperMotorCalibrationStatus &self);
 int returnCalibrationMotorStatusID(StepperMotorCalibrationStatus &self);
@@ -41,8 +44,10 @@ BOOST_PYTHON_MODULE(steppermotor) {
       .def("setEnabled", &LinearStepperMotor::setEnabled)
       .def("getEnabled", &LinearStepperMotor::getEnabled)
       .def("calibrateMotor", &LinearStepperMotor::calibrateMotor)
-      .def("getNegativeEndSwitchPosition", &LinearStepperMotor::getNegativeEndSwitchPosition)
-      .def("getPositiveEndSwitchPosition", &LinearStepperMotor::getPositiveEndSwitchPosition)
+      .def("getNegativeEndSwitchPosition",
+           &LinearStepperMotor::getNegativeEndSwitchPosition)
+      .def("getPositiveEndSwitchPosition",
+           &LinearStepperMotor::getPositiveEndSwitchPosition)
       .def("getStatusAndError", &LinearStepperMotor::getStatusAndError)
       .def("getUserSpeedLimit", &LinearStepperMotor::getUserSpeedLimit)
       .def("setUserSpeedLimit", &LinearStepperMotor::setUserSpeedLimit)
@@ -50,7 +55,10 @@ BOOST_PYTHON_MODULE(steppermotor) {
       .def("getUserCurrentLimit", &LinearStepperMotor::getUserCurrentLimit)
       .def("getSafeCurrentLimit", &LinearStepperMotor::getSafeCurrentLimit)
       .def("getMaxSpeedCapability", &LinearStepperMotor::getMaxSpeedCapability)
-      .def("setStepperMotorUnitsConverter", &LinearStepperMotor::setStepperMotorUnitsConverter);
+      .def("setStepperMotorUnitsConverter",
+           &LinearStepperMotor::setStepperMotorUnitsConverter);
+  bp::def("setDmapFilePath", &setDmapFilePath);
+  bp::def("getDmapFilePath", &getDmapFilePath);
 }
 
 std::string returnMotorStatusAsString(LinearStepperMotorStatusAndError &self) {
@@ -76,4 +84,12 @@ std::string returnCalibrartionStatusAsString(
 
 int returnCalibrationMotorStatusID(StepperMotorCalibrationStatus &self) {
   return self.getId();
+}
+
+void setDmapFilePath(std::string dmapFilePath){
+  mtca4u::setDMapFilePath(dmapFilePath);
+}
+
+std::string getDmapFilePath(){
+  return (mtca4u::getDMapFilePath());
 }
