@@ -4,14 +4,14 @@ project(steppermotor)
 
 set(${PROJECT_NAME}_MAJOR_VERSION 00)
 set(${PROJECT_NAME}_MINOR_VERSION 03)
-set(${PROJECT_NAME}_PATCH_VERSION 00)
+set(${PROJECT_NAME}_PATCH_VERSION 01)
 set(${PROJECT_NAME}_VERSION
   ${${PROJECT_NAME}_MAJOR_VERSION}.${${PROJECT_NAME}_MINOR_VERSION}.${${PROJECT_NAME}_PATCH_VERSION})
 set(${PROJECT_NAME}_SOVERSION ${${PROJECT_NAME}_MAJOR_VERSION}.${${PROJECT_NAME}_MINOR_VERSION})
 
-FIND_PACKAGE(MotorDriverCard 00.09 REQUIRED)
-include_directories(${MotorDriverCard_INCLUDE_DIRS})
-set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} ${MotorDriverCard_CXX_FLAGS}")
+FIND_PACKAGE(mtca4u-MotorDriverCard 00.12 REQUIRED)
+include_directories(${mtca4u-MotorDriverCard_INCLUDE_DIRS})
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} ${mtca4u-MotorDriverCard_CXX_FLAGS}")
 
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall -Wextra -Wshadow -pedantic -Wuninitialized")
 set(CMAKE_SHARED_LINKER_FLAGS "${CMAKE_SHARED_LINKER_FLAGS} -Wl,--export-dynamic")
@@ -27,7 +27,7 @@ include_directories( ${PYTHON_INCLUDE_DIRS} )
 
 add_library(${PROJECT_NAME} SHARED MotorDriverCardPython.cc )
 target_link_libraries(${PROJECT_NAME} ${Boost_LIBRARIES} ${PYTHON_LIBRARIES}
-				      ${MotorDriverCard_LIBRARIES})
+				      ${mtca4u-MotorDriverCard_LIBRARIES})
 #turn off the lib prefix for the python module 
 #otherwise the module would be called "libSomething" instead of just "Something"
 set_target_properties(${PROJECT_NAME} PROPERTIES PREFIX "")
