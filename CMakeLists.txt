@@ -40,3 +40,16 @@ set_target_properties(${MAIN_TARGET} PROPERTIES PREFIX "")
 set_property(TARGET ${MAIN_TARGET} PROPERTY INSTALL_RPATH_USE_LINK_PATH TRUE)
 install(TARGETS ${MAIN_TARGET} LIBRARY DESTINATION lib/python2.7/dist-packages/ChimeraTK)
 install(FILES __init__.py DESTINATION lib/python2.7/dist-packages/ChimeraTK)
+
+######### TESTING ###########
+#copy the test files
+file(GLOB TEST_FILES  tests/*.py)
+file(COPY ${TEST_FILES} DESTINATION ${CMAKE_BINARY_DIR})
+
+#add them to ctest
+enable_testing()
+foreach( testFile  ${TEST_FILES})
+  #NAME_WE means the base name without path and (longest) extension
+  get_filename_component(testName ${testFile} NAME_WE)
+  add_test(${testName} ${testName}.py)
+endforeach()
