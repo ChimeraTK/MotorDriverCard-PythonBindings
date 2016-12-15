@@ -1,8 +1,8 @@
 #include <mtca4u/MotorDriverCard/StepperMotor.h>
 #include <mtca4u/MotorDriverCard/LinearStepperMotor.h>
+#include <mtca4u/MotorDriverCard/MotorDriverCardFactory.h>
 #include <boost/python.hpp>
 #include <boost/noncopyable.hpp>
-#include <mtca4u/Utilities.h>
 
 using namespace mtca4u;
 namespace bp = boost::python;
@@ -87,9 +87,9 @@ int returnCalibrationMotorStatusID(StepperMotorCalibrationStatus &self) {
 }
 
 void setDmapFilePath(std::string dmapFilePath){
-  mtca4u::setDMapFilePath(dmapFilePath);
+  MotorDriverCardFactory::setDeviceaccessDMapFilePath(dmapFilePath);
 }
 
 std::string getDmapFilePath(){
-  return (mtca4u::getDMapFilePath());
+  return (MotorDriverCardFactory::getDeviceaccessDMapFilePath());
 }
