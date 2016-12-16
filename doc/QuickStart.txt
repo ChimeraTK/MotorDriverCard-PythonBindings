@@ -5,7 +5,7 @@ Quick Start:
    - xml describing motor configuration (e.g. VT21-MotorDriverCardConfig.xml)
    - dmap file
    - map files associated with dmap file
-   - system installation of the dev-mtca4u-motordrivercard and python-mtca4u debian packages. 
+   - installation of the python-chimeratk-steppermotor debian package. 
 
 2. Assuming the following directory structure:
    ParentDirectory
@@ -20,7 +20,7 @@ Example Usage:
 
 Start python in the 'ParentDirectory'
 $  python
->>> import steppermotor
+>>> from ChimeraTK import steppermotor
 >>> steppermotor.setDmapFilePath("./MD22_on_DAMC2.dmap")
 >>> motor = steppermotor.LinearStepperMotor("DFMC-MD22", "MD220", 0, "VT21-MotorDriverCardConfig.xml")
 >>> motor.setEnabled(True)
