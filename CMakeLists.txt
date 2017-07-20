@@ -20,7 +20,7 @@ message("mtca4u-MotorDriverCard_CXX_FLAGS ${mtca4u-MotorDriverCard_CXX_FLAGS}")
 
 FIND_PACKAGE(Boost COMPONENTS python REQUIRED)
 include_directories( ${Boost_INCLUDE_DIR} )
-FIND_PACKAGE(PythonLibs REQUIRED)
+FIND_PACKAGE(PythonLibs REQUIRED 2)
 include_directories( ${PYTHON_INCLUDE_DIRS} )
 
 #message("\${Boost_LIBRARIES} ${Boost_LIBRARIES}")
