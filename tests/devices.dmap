@@ -1,0 +1,3 @@
+#This dmap file just exists to make setDmapFilePath happy.
+#You can't open or instantiate the DUMMY device, it does not even have a map file.
+DUMMY (dummy)

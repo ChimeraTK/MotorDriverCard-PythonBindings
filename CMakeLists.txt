@@ -31,12 +31,12 @@ endif()
 
 set(${PROJECT_NAME}_MAJOR_VERSION 00)
 set(${PROJECT_NAME}_MINOR_VERSION 03)
-set(${PROJECT_NAME}_PATCH_VERSION 02)
+set(${PROJECT_NAME}_PATCH_VERSION 03)
 set(${PROJECT_NAME}_VERSION
   ${${PROJECT_NAME}_MAJOR_VERSION}.${${PROJECT_NAME}_MINOR_VERSION}.${${PROJECT_NAME}_PATCH_VERSION})
 set(${PROJECT_NAME}_SOVERSION ${${PROJECT_NAME}_MAJOR_VERSION}.${${PROJECT_NAME}_MINOR_VERSION})
 
-find_package(mtca4u-MotorDriverCard 00.12 REQUIRED)
+find_package(mtca4u-MotorDriverCard 01.07 REQUIRED)
 find_package(PythonLibs ${python_major_version} REQUIRED)
 get_boost_python_component_name(PYTHONLIBS_VERSION_STRING boost_python)
 find_package(Boost COMPONENTS ${boost_python} REQUIRED)
@@ -73,6 +73,7 @@ install(FILES __init__.py DESTINATION ${install_path})
 #copy the test files
 file(GLOB TEST_FILES  tests/*.py)
 file(COPY ${TEST_FILES} DESTINATION ${CMAKE_BINARY_DIR})
+file(COPY tests/devices.dmap DESTINATION ${CMAKE_BINARY_DIR})
 
 #add them to ctest
 enable_testing()
