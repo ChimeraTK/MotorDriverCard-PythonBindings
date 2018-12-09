@@ -38,8 +38,10 @@ set(${PROJECT_NAME}_SOVERSION ${${PROJECT_NAME}_MAJOR_VERSION}.${${PROJECT_NAME}
 
 find_package(mtca4u-MotorDriverCard 01.07 REQUIRED)
 find_package(PythonLibs ${python_major_version} REQUIRED)
+find_package(PythonInterp ${python_major_version} REQUIRED)
 get_boost_python_component_name(PYTHONLIBS_VERSION_STRING boost_python)
 find_package(Boost COMPONENTS ${boost_python} REQUIRED)
+
 
 include_directories(${mtca4u-MotorDriverCard_INCLUDE_DIRS})
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} ${mtca4u-MotorDriverCard_CXX_FLAGS}")
@@ -71,9 +73,9 @@ install(FILES __init__.py DESTINATION ${install_path})
 
 ######### TESTING ###########
 #copy the test files
-file(GLOB TEST_FILES  tests/*.py)
-file(COPY ${TEST_FILES} DESTINATION ${CMAKE_BINARY_DIR})
+configure_file(tests/test_import.py.in test_import.py)
 file(COPY tests/devices.dmap DESTINATION ${CMAKE_BINARY_DIR})
+set(TEST_FILES "test_import.py")
 
 #add them to ctest
 enable_testing()

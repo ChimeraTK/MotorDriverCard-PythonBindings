@@ -1,4 +1,4 @@
-#!/usr/bin/python
+#!@PYTHON_EXECUTABLE@
 
 #This is a smoke test that the module can be loaded and executed.
 #It does not test that the module is installed correclty
