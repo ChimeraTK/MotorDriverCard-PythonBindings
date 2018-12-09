@@ -61,6 +61,7 @@ target_link_libraries(${MAIN_TARGET} ${Boost_LIBRARIES} ${PYTHON_LIBRARIES}
 #turn off the lib prefix for the python module 
 #otherwise the module would be called "libSomething" instead of just "Something"
 set_target_properties(${MAIN_TARGET} PROPERTIES PREFIX "")
+set_target_properties(${MAIN_TARGET} PROPERTIES LINK_FLAGS ${mtca4u-MotorDriverCard_LINK_FLAGS})
 
 set_property(TARGET ${MAIN_TARGET} PROPERTY INSTALL_RPATH_USE_LINK_PATH TRUE)
 
