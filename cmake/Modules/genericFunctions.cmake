@@ -27,10 +27,11 @@ function (get_boost_python_component_name pythonlib_version component_name)
         else()
             set(${component_name} "python" PARENT_SCOPE)
         endif()
-    else()
-    #elseif("${os_vendor}" STREQUAL "openSUSE Tumbleweed")
+    elseif("${os_vendor}" STREQUAL "openSUSE Tumbleweed")
+        set(${component_name} "python${major_version}${minor_version}" PARENT_SCOPE)
     # This is the default on other distros than ubuntu for now. Fix this later as
     # required.
+    else()
         if(result)
             set(${component_name} "python${major_version}" PARENT_SCOPE)
         else()
