@@ -10,7 +10,7 @@ include(genericFunctions)
 #
 # Define cache option PYTHON3 to indicate if python3 compilation is required;
 # else we compile for python 2
-set(PYTHON3 FALSE CACHE BOOL
+set(PYTHON3 TRUE CACHE BOOL
           "Builds modules for python3 if true and python2 if false") 
 #
 # Unfortunately cmake version on trusty needs to locate PythonLibs for python3.
@@ -39,9 +39,11 @@ set(${PROJECT_NAME}_SOVERSION ${${PROJECT_NAME}_MAJOR_VERSION}.${${PROJECT_NAME}
 find_package(mtca4u-MotorDriverCard 01.07 REQUIRED)
 find_package(PythonLibs ${python_major_version} REQUIRED)
 find_package(PythonInterp ${python_major_version} REQUIRED)
-get_boost_python_component_name(PYTHONLIBS_VERSION_STRING boost_python)
-find_package(Boost COMPONENTS ${boost_python} REQUIRED)
 
+find_package(Boost REQUIRED) # hack to get Boost_VERSION_STRING populated
+get_boost_python_component_name(PYTHONLIBS_VERSION_STRING Boost_VERSION_STRING boost_python)
+message("get_boost_python_component_name(${PYTHONLIBS_VERSION_STRING} ${Boost_VERSION_STRING} boost_python)")
+find_package(Boost REQUIRED COMPONENTS ${boost_python})
 
 include_directories(${mtca4u-MotorDriverCard_INCLUDE_DIRS})
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} ${mtca4u-MotorDriverCard_CXX_FLAGS}")
@@ -56,8 +58,8 @@ include_directories( ${PYTHON_INCLUDE_DIRS} )
 #a directory with multiple we will libraries
 set(MAIN_TARGET "steppermotor")
 add_library(${MAIN_TARGET} SHARED MotorDriverCardPython.cc )
-target_link_libraries(${MAIN_TARGET} ${Boost_LIBRARIES} ${PYTHON_LIBRARIES}
-				      ${mtca4u-MotorDriverCard_LIBRARIES})
+target_link_libraries(${MAIN_TARGET} ${mtca4u-MotorDriverCard_LIBRARIES}
+                      ${PYTHON_LIBRARIES} ${Boost_LIBRARIES} Boost::${boost_python})
 #turn off the lib prefix for the python module 
 #otherwise the module would be called "libSomething" instead of just "Something"
 set_target_properties(${MAIN_TARGET} PROPERTIES PREFIX "")
