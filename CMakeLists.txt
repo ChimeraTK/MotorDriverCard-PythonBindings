@@ -2,10 +2,12 @@ cmake_minimum_required(VERSION 2.8.0)
 project(ChimeraTK-steppermotor-py)
 
 
-#
-# cmake/Modules has function defenitions we use
-list(APPEND CMAKE_MODULE_PATH ${CMAKE_SOURCE_DIR}/cmake/Modules)
-include(genericFunctions)
+# This location has some of the modules that we are using below
+list(APPEND CMAKE_MODULE_PATH 
+            ${CMAKE_SOURCE_DIR}/cmake
+            ${CMAKE_SOURCE_DIR}/cmake/Modules)
+
+include(pythonBindingHelperMacros)
 
 #
 # Define cache option PYTHON3 to indicate if python3 compilation is required;
@@ -42,7 +44,6 @@ find_package(PythonInterp ${python_major_version} REQUIRED)
 
 find_package(Boost REQUIRED) # hack to get Boost_VERSION_STRING populated
 get_boost_python_component_name(PYTHONLIBS_VERSION_STRING Boost_VERSION_STRING boost_python)
-message("get_boost_python_component_name(${PYTHONLIBS_VERSION_STRING} ${Boost_VERSION_STRING} boost_python)")
 find_package(Boost REQUIRED COMPONENTS ${boost_python})
 
 include_directories(${mtca4u-MotorDriverCard_INCLUDE_DIRS})
